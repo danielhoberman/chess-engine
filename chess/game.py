@@ -1,5 +1,6 @@
 from .board import Board
 
+
 class Game:
     def __init__(self):
         self.board = Board()
@@ -21,4 +22,3 @@ class Game:
 
     def is_stalemate(self, color):
         pass
-

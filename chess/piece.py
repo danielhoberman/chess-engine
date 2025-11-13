@@ -1,5 +1,5 @@
-
 from enum import IntEnum
+
 
 class Piece(IntEnum):
     None_ = 0
@@ -27,23 +27,10 @@ class Piece(IntEnum):
         if piece == Piece.None_:
             return False
         return (piece & (Piece.White | Piece.Black)) == color
-    
+
     @staticmethod
     def is_sliding_piece(piece: int) -> bool:
         """
         Returns True if the piece is a sliding piece (Bishop, Rook, or Queen).
         """
         return piece in (Piece.Bishop, Piece.Rook, Piece.Queen)
-
-
-
-
-
-
-
-    
-
-
-
-
-

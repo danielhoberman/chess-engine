@@ -1,5 +1,6 @@
 from .piece import Piece
 
+
 class Board:
     def __init__(self):
         self.squares = [0] * 64
@@ -16,4 +17,3 @@ class Board:
         if value not in (Piece.White, Piece.Black):
             raise ValueError("color_to_move must be Piece.White or Piece.Black")
         self._color_to_move = value
-        

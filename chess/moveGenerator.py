@@ -4,6 +4,7 @@ from .piece import Piece
 from .board import Board
 from .utils import DIRECTION_OFFSETS  # precomputed
 
+
 @dataclass(frozen=True)
 class Move:
     start_square: int
@@ -19,7 +20,7 @@ class MoveGenerator:
             board: Board instance containing the squares and color_to_move.
             edge_data: precomputed num_squares_to_edge (default imported globally).
         """
-        self.board: 'Board' = board
+        self.board: "Board" = board
         self.num_squares_to_edge = edge_data
 
     def generate_moves(self) -> List[Move]:
@@ -53,7 +54,9 @@ class MoveGenerator:
         """
         for direction_index in range(8):
             for n in range(self.num_squares_to_edge[start_square][direction_index]):
-                target_square = start_square + DIRECTION_OFFSETS[direction_index] * (n + 1)
+                target_square = start_square + DIRECTION_OFFSETS[direction_index] * (
+                    n + 1
+                )
                 piece_on_target = self.board.squares[target_square]
 
                 if piece_on_target != Piece.None_:

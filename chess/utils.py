@@ -4,14 +4,15 @@ from .piece import Piece
 
 DIRECTION_OFFSETS = [8, -8, -1, 1, 7, -7, 9, -9]
 
+
 def load_position_from_fen(fen: str, squares: list[int]) -> None:
     piece_type_from_symbol = {
-        'k': Piece.King,
-        'p': Piece.Pawn,
-        'n': Piece.Knight,
-        'b': Piece.Bishop,
-        'r': Piece.Rook,
-        'q': Piece.Queen,
+        "k": Piece.King,
+        "p": Piece.Pawn,
+        "n": Piece.Knight,
+        "b": Piece.Bishop,
+        "r": Piece.Rook,
+        "q": Piece.Queen,
     }
 
     fen_board = fen.split()[0]  # safer and cleaner than split(' ')[0]
@@ -19,7 +20,7 @@ def load_position_from_fen(fen: str, squares: list[int]) -> None:
     rank = 7
 
     for symbol in fen_board:
-        if symbol == '/':
+        if symbol == "/":
             file = 0
             rank -= 1
             continue
@@ -64,8 +65,3 @@ def precompute_move_data():
             ]
 
     return num_squares_to_edge
-
-
-
-
-

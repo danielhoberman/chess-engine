@@ -2,7 +2,6 @@ import pygame
 from chess.board import Board
 from chess.piece import Piece
 from chess.utils import load_position_from_fen, precompute_move_data
-from chess.moveGenerator import MoveGenerator
 
 pygame.init()
 
@@ -21,7 +20,8 @@ screen = pygame.display.set_mode((WIDTH + MARGIN, HEIGHT + MARGIN))
 pygame.display.set_caption("Chess")
 
 # Font for ranks/files
-font = pygame.font.SysFont('Arial', 20)
+font = pygame.font.SysFont("Arial", 20)
+
 
 # ---------------------- Load Piece Images ----------------------
 def load_images():
@@ -31,13 +31,19 @@ def load_images():
         try:
             images[f"w{piece}"] = pygame.image.load(f"assets/w{piece}.png")
             images[f"b{piece}"] = pygame.image.load(f"assets/b{piece}.png")
-            images[f"w{piece}"] = pygame.transform.scale(images[f"w{piece}"], (SQUARE_SIZE, SQUARE_SIZE))
-            images[f"b{piece}"] = pygame.transform.scale(images[f"b{piece}"], (SQUARE_SIZE, SQUARE_SIZE))
+            images[f"w{piece}"] = pygame.transform.scale(
+                images[f"w{piece}"], (SQUARE_SIZE, SQUARE_SIZE)
+            )
+            images[f"b{piece}"] = pygame.transform.scale(
+                images[f"b{piece}"], (SQUARE_SIZE, SQUARE_SIZE)
+            )
         except FileNotFoundError:
             print(f"Image for {piece} not found. Skipping.")
     return images
 
+
 images = load_images()
+
 
 # ---------------------- Drawing Functions ----------------------
 def draw_board(screen):
@@ -48,20 +54,31 @@ def draw_board(screen):
             pygame.draw.rect(
                 screen,
                 color,
-                (rank*SQUARE_SIZE + MARGIN, file*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
+                (
+                    rank * SQUARE_SIZE + MARGIN,
+                    file * SQUARE_SIZE,
+                    SQUARE_SIZE,
+                    SQUARE_SIZE,
+                ),
             )
 
     # Draw ranks (1–8) **only on the left**
     for row in range(ROWS):
         rank_text = font.render(str(8 - row), True, TEXT_COLOR)
-        screen.blit(rank_text, (5, row*SQUARE_SIZE + SQUARE_SIZE//2 - 10))  # Left side only
+        screen.blit(
+            rank_text, (5, row * SQUARE_SIZE + SQUARE_SIZE // 2 - 10)
+        )  # Left side only
 
     # Draw files (a–h) on top and bottom
-    files = ['a','b','c','d','e','f','g','h']
+    files = ["a", "b", "c", "d", "e", "f", "g", "h"]
     for col in range(COLS):
         file_text = font.render(files[col], True, TEXT_COLOR)
-        screen.blit(file_text, (col*SQUARE_SIZE + MARGIN + SQUARE_SIZE//2 - 5, HEIGHT))  # Bottom
-        screen.blit(file_text, (col*SQUARE_SIZE + MARGIN + SQUARE_SIZE//2 - 5, 5))       # Top
+        screen.blit(
+            file_text, (col * SQUARE_SIZE + MARGIN + SQUARE_SIZE // 2 - 5, HEIGHT)
+        )  # Bottom
+        screen.blit(
+            file_text, (col * SQUARE_SIZE + MARGIN + SQUARE_SIZE // 2 - 5, 5)
+        )  # Top
 
 
 def draw_pieces(screen, board_squares):
@@ -99,12 +116,14 @@ def highlight_square(screen, pos):
     pygame.draw.rect(
         screen,
         HIGHLIGHT,
-        (col*SQUARE_SIZE + MARGIN, row*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE),
-        5
+        (col * SQUARE_SIZE + MARGIN, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE),
+        5,
     )
+
 
 # ---------------------- Precompute Move Data ----------------------
 num_squares_to_edge = precompute_move_data()  # called once, before the game loop
+
 
 # ---------------------- Main Game Loop ----------------------
 def main():
@@ -115,10 +134,10 @@ def main():
     load_position_from_fen(start_fen, square)
 
     # Instantiate MoveGenerator with the board
-    move_generator = MoveGenerator(board, num_squares_to_edge)
+    # move_generator = MoveGenerator(board, num_squares_to_edge)
 
     # Generate moves
-    moves = move_generator.generate_moves()
+    # moves = move_generator.generate_moves()
 
     selected_square = None
     running = True
